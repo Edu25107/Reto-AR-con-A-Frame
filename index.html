@@ -3,25 +3,27 @@
   <head>
     <meta charset="utf-8" />
     <title>Reto AR</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, viewport-fit=cover" />
 
-  <script src="https://aframe.io/releases/1.7.1/aframe.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/aframe-extras@6.1.1/dist/aframe-extras.min.js"></script>
+    <script src="https://aframe.io/releases/1.7.1/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aframe-extras@6.1.1/dist/aframe-extras.min.js"></script>
   </head>
   <body style="margin: 0; overflow: hidden;">
-    <a-scene xr-mode-ui="XRMode: xr;">
+    <a-scene xr-mode-ui="enabled: true;">
       <a-entity light="type: ambient; intensity: 1"></a-entity>
       <a-entity light="type: directional; intensity: 0.8" position="1 1 0"></a-entity>
 
-      <a-plane rotation="-90 0 0" width="4" height="4" color="#999"></a-plane>
+      <a-plane rotation="-90 0 0" width="4" height="4" color="#999" shadow="receive: true"></a-plane>
 
+      <!-- Avatar colocado 2 metros delante del usuario (eje Z negativo en A-Frame) -->
+      <a-entity
+        gltf-model="url(AvatarMe.glb)"
+        position="0 0 -2"
+        rotation="0 180 0"
+        scale="1 1 1"
+        animation-mixer="clip: *; loop: repeat"
+        shadow="cast: true"
+      ></a-entity>
 
-<a-entity
-  gltf-model="url(AvatarMe.glb)"
-  rotation="0 0 0"   
-  scale="1 1 1"
-  animation-mixer="clip: *; loop: repeat"
-></a-entity>
-      <a-entity camera look-controls position="0 1.6 3"></a-entity>
-    </a-scene>
-  </body>
-</html>
+      <!-- Cámara: posición solo para modo no-AR (desktop). En AR la posición la maneja el dispositivo -->
+      <a-entity camera look-controls="enabled: false" position="0 1.6 3" wasd-controls="enabled:
